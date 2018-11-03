@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Row, Col, Button, Input } from "antd";
 
 const Home = props => {
-  const { handleLocationInput, getWeather } = props;
+  const { handleLocationInput, getWeather, getFiveDayForecast } = props;
   return (
     <Fragment>
       <Row type="flex" justify="center" align="middle">
@@ -19,11 +19,7 @@ const Home = props => {
         </Col>
       </Row>
       <Row type="flex" justify="center" align="middle">
-        <Button
-          type="primary"
-          style={{ marginTop: "15px" }}
-          onClick={getWeather}
-        >
+        <Button type="primary" style={{ marginTop: "15px" }}>
           Get Weather
         </Button>
       </Row>

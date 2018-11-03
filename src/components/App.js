@@ -4,7 +4,7 @@ import { Layout } from "antd";
 
 import MyHeader from "./header-component";
 import Home from "./Home";
-import { getWeatherByCityAndCC } from "../utils/api";
+import { getWeatherByCityAndCC, getForecastForFiveDays } from "../utils/api";
 
 import "antd/dist/antd.css";
 
@@ -24,6 +24,13 @@ class App extends Component {
     const city = location.split(",")[0];
     const countryCode = location.split(",")[1].trim();
     getWeatherByCityAndCC(city, countryCode);
+  };
+
+  getFiveDayForecast = () => {
+    const location = this.state.location;
+    const city = location.split(",")[0];
+    const countryCode = location.split(",")[1].trim();
+    getForecastForFiveDays(city, countryCode);
   };
 
   render() {
@@ -46,6 +53,7 @@ class App extends Component {
                 <Home
                   handleLocationInput={this.handleLocationInput}
                   getWeather={this.getWeather}
+                  getFiveDayForecast={this.getFiveDayForecast}
                 />
               )}
             />
