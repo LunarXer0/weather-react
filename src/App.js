@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Layout } from "antd";
+
+import MyHeader from "./components/header-component";
+import Home from "./components/Home";
+
+import "antd/dist/antd.css";
 
 class App extends Component {
   render() {
+    const { Header, Content } = Layout;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <Layout>
+          <Header>
+            <MyHeader title="Weather App" />
+          </Header>
+          <Content style={{ height: "100vh", paddingTop: "15px" }}>
+            <Route exact path="/" component={Home} />
+          </Content>
+        </Layout>
+      </BrowserRouter>
     );
   }
 }
