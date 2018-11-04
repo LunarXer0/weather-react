@@ -3,34 +3,47 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Layout } from "antd";
 
 import MyHeader from "./header-component";
-import Home from "./Home";
+import Home from "./content-component";
 import { getWeatherByCityAndCC, getForecastForFiveDays } from "../utils/api";
 
 import "antd/dist/antd.css";
 
 class App extends Component {
   state = {
-    location: ""
+    location: {
+      city: "",
+      countryCode: ""
+    }
   };
 
   handleLocationInput = location => {
-    this.setState({
-      location
-    });
+    let city, countryCode;
+    if (location.includes(",")) {
+      city = location.split(",")[0];
+      countryCode = location.split(",")[1].trim();
+    }
+    if ((city !== "" || null) && (countryCode !== "" || null)) {
+      this.setState({
+        location: {
+          city,
+          countryCode
+        }
+      });
+    }
   };
 
   getWeather = () => {
-    const location = this.state.location;
-    const city = location.split(",")[0];
-    const countryCode = location.split(",")[1].trim();
-    getWeatherByCityAndCC(city, countryCode);
+    getWeatherByCityAndCC(
+      this.state.location.city,
+      this.state.location.countryCode
+    );
   };
 
   getFiveDayForecast = () => {
-    const location = this.state.location;
-    const city = location.split(",")[0];
-    const countryCode = location.split(",")[1].trim();
-    getForecastForFiveDays(city, countryCode);
+    getForecastForFiveDays(
+      this.state.location.city,
+      this.state.location.countryCode
+    );
   };
 
   render() {
@@ -46,17 +59,26 @@ class App extends Component {
             />
           </Header>
           <Content style={{ height: "100vh", paddingTop: "15px" }}>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Home
-                  handleLocationInput={this.handleLocationInput}
-                  getWeather={this.getWeather}
-                  getFiveDayForecast={this.getFiveDayForecast}
-                />
-              )}
-            />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Home
+                    title="Enter a City and Country Code"
+                    handleLocationInput={this.handleLocationInput}
+                    getWeather={this.getWeather}
+                    getFiveDayForecast={this.getFiveDayForecast}
+                    city={this.state.location.city}
+                    countryCode={this.state.location.countryCode}
+                  />
+                )}
+              />
+              <Route
+                path="/forecast"
+                render={() => <Home title="Five Day Forecast" />}
+              />
+            </Switch>
           </Content>
         </Layout>
       </BrowserRouter>
