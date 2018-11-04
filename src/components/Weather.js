@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 
-export default class Weather extends Component {
-  render() {
-    return (
-      <div>
-        <h2>Weather Component</h2>
-      </div>
-    );
-  }
-}
+const Weather = ({
+  temperature,
+  city,
+  country,
+  humidity,
+  description,
+  error
+}) => (
+  <div>
+    {city &&
+      country && (
+        <p>
+          Location: {city}, {country}
+        </p>
+      )}
+    {temperature && <p>Temperature: {temperature}</p>}
+    {humidity && <p>Humidity: {humidity}</p>}
+    {description && <p>Conditions: {description}</p>}
+    {error && <p>{error}</p>}
+  </div>
+);
+
+export default Weather;
