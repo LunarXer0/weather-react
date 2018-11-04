@@ -8,17 +8,17 @@ const Weather = ({
   description,
   error
 }) => (
-  <div>
+  <div className="weather__info">
     {city &&
       country && (
-        <p>
+        <p className="weather__key">
           Location: {city}, {country}
         </p>
       )}
-    {temperature && <p>Temperature: {temperature}</p>}
-    {humidity && <p>Humidity: {humidity}</p>}
-    {description && <p>Conditions: {description}</p>}
-    {error && <p>{error}</p>}
+    {temperature && <p className="weather__key">Temperature: {temperature}</p>}
+    {humidity && <p className="weather__key">Humidity: {humidity}</p>}
+    {description && <p className="weather__key">Conditions: {description}</p>}
+    {error && <p className="weather__key">{error}</p>}
   </div>
 );
 
